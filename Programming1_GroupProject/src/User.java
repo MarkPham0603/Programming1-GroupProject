@@ -1,14 +1,24 @@
-public class User {
-    private String username, password, fullname, email, address;
-    private int phoneNumber;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
-    public User(String username, String password, String fullname, String email, String address, int phoneNumber) {
+public class User {
+    private String  username, password, fullname, email, address, membership, phoneNumber ;
+
+    public User(String username, String password, String fullname, String email, String address, String membership, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.email = email;
         this.address = address;
+        this.membership = membership;
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return username +","+ password +","+ fullname +","+ email +","+ address +","+ membership +","+ phoneNumber;
     }
 
     public String getUsername() {
@@ -51,11 +61,20 @@ public class User {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getMembership() {
+        return membership;
+    }
+
+    public void setMembership(String membership) {
+        this.membership = membership;
+    }
+
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
+
