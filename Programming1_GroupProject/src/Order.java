@@ -1,41 +1,33 @@
-import java.util.Date;
-
-public class Order {
-    private String orderID;
-    private Date Datecreated;
-    private String status;
-
-
-    public Order(String orderID, Date datecreated, String status) {
-        this.orderID = orderID;
-        Datecreated = datecreated;
-        this.status = status;
+class OrderService {
+    private List<Order> orders;
+    private int orderId;
+    
+    public OrderService() {
+        this.orders = new ArrayList<Order>();
+        this.orderId = 0;
     }
-
-    public Order() {
+    
+    public void createOrder(Customer customer, List<Product> products) {
+        // code to create a new order, calculate the total price and apply discount
     }
-
-    public String getOrderID() {
-        return orderID;
+    
+    public void approveOrder(int orderId) {
+        // code to change the status of an order to "delivered"
     }
-
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
+    
+    public void viewOrders(Customer customer) {
+        // code to view all orders, or all orders made by a specific customer
     }
-
-    public Date getDatecreated() {
-        return Datecreated;
+    
+    public void addProductToOrder(int orderId, int productId) {
+        // code to add a product to an existing order
     }
-
-    public void setDatecreated(Date datecreated) {
-        this.Datecreated = datecreated;
+    
+    public void deleteProductFromOrder(int orderId, int productId) {
+        // code to remove a product from an existing order
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    
+    public void viewOrderPrice(int orderId) {
+        // code to view the total price for all items in an order
     }
 }
