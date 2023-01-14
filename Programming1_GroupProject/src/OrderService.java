@@ -1,55 +1,92 @@
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class Orderservice extends Order {
-    public Orderservice(String orderID, Date datecreated, String status) {
-        super(orderID, datecreated, status);
-    }
-
-    private List<Order> listofOrder;
-
-    public Orderservice() {
-        this.listofOrder = new ArrayList<>();
-    }
-
-    public Orderservice(List<Order> listofOrder) {
-        this.listofOrder = listofOrder;
-    }
-
-    public List<Order> getListofOrder() {
-        return listofOrder;
-    }
-
-    public int addOrder(Order n) {
-        this.listofOrder.add(n);
-        return count();
-    }
-
-    public int count() {
-        return this.listofOrder.size();
-    }
-
-    public Order getOrder(int index){
-        if(index < 0 || index >= count()){
-            return null;
+class OrderService {
+    private List<Order> orders;
+    private int orderId;
+    private ProductService productService; // an instance of ProductService class to interact with products
+    
+        public int createOrder(Customer customer, List<Product> products) {
+        // calculate total price for the products and create new order
+        double totalPrice = 0;
+        for(Product product: products) {
+            totalPrice += product.getPrice();
         }
-        return this.listofOrder.get(index);
+        Order order = new Order(++orderId, customer, products, "New", totalPrice, 0);
+        orders.add(order);
+        return orderId;
     }
-
-    public boolean removeOrder(String orderID){
-        int index = -1;
-        for(int i = 0, n= count(); i<n; i++) {
-            if(this.listofOrder.get(i).getOrderID() == orderID ){
-                index = i;
-                break;
+    
+    public void updateOrder(int orderId, List<Product> productsToAdd, List<Product> productsToRemove) {
+        // add or remove products from the order
+        Order order = getOrderById(orderId);
+        if (order != null) {
+            for(Product product: productsToAdd) {
+                order.getProducts().add(product);
+                order.setTotalPrice(order.getTotalPrice() + product.getPrice());
+            }
+            for(Product product: productsToRemove) {
+                order.getProducts().remove(product);
+                order.setTotalPrice(order.getTotalPrice() - product.getPrice());
             }
         }
-        if (index != -1){
-            this.listofOrder.remove(index);
-            return true;
+    }
+    
+    public double viewOrderPrice(int orderId) {
+        // view the total price of all items in the order
+        Order order = getOrderById(orderId);
+        if (order != null) {
+            return order.getTotalPrice();
         }
-        return false;
+        return 0;
+    }
+    
+    public Order getOrderById(int orderId) {
+        // helper method to retrieve an order by its id
+        for (Order order : orders) {
+            if (order.getOrderId() == orderId) {
+                return order;
+            }
+        }
+        return null;
+    }
+     public void approveOrder(int orderId) {
+        // change the status of an order to "delivered"
+        Order order = getOrderById(orderId);
+        if (order != null) {
+            order.setStatus("Delivered");
+        }
+    }
+
+    public void viewOrderStatus(int orderId) {
+        // view the status of an order
+        Order order = getOrderById(orderId);
+        if (order != null) {
+            System.out.println("Order Status: " + order.getStatus());
+        }
+    }
+    
+    public void viewAllOrders() {
+        // view all the orders
+        for (Order order : orders) {
+            System.out.println("Order ID: " + order.getOrderId());
+            System.out.println("Customer: " + order.getCustomer().getName());
+            System.out.println("Products: " + order.getProducts());
+            System.out.println("Total Price: " + order.getTotalPrice());
+            System.out.println("Discount: " + order.getDiscount());
+            System.out.println("Status: " + order.getStatus());
+        }
+    }
+        public void sortProductsByName(Order order) {
+        Collections.sort(order.getProducts(), new Comparator<Product>() {
+            @Override
+            public int compare(Product p1, Product p2) {
+                return p1.getTitle().compareTo(p2.getTitle());
+            }
+        });
     }
 }
-
