@@ -1,33 +1,58 @@
-class OrderService {
-    private List<Order> orders;
-    private int orderId;
-    
-    public OrderService() {
-        this.orders = new ArrayList<Order>();
-        this.orderId = 0;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Order {
+    private String orderID;
+    private Customer customer;
+    private List<Product> products;
+    private Date orderDate;
+    private double totalPrice;
+    private String status;
+
+    public Order(String orderID, Customer customer) {
+        this.orderID = orderID;
+        this.customer = customer;
+        this.products = new ArrayList<>();
+        this.orderDate = new Date();
+        this.status = "Pending";
     }
-    
-    public void createOrder(Customer customer, List<Product> products) {
-        // code to create a new order, calculate the total price and apply discount
+
+    public String getOrderID() {
+        return orderID;
     }
-    
-    public void approveOrder(int orderId) {
-        // code to change the status of an order to "delivered"
+
+    public Customer getCustomer() {
+        return customer;
     }
-    
-    public void viewOrders(Customer customer) {
-        // code to view all orders, or all orders made by a specific customer
+
+    public List<Product> getProducts() {
+        return products;
     }
-    
-    public void addProductToOrder(int orderId, int productId) {
-        // code to add a product to an existing order
+
+    public Date getOrderDate() {
+        return orderDate;
     }
-    
-    public void deleteProductFromOrder(int orderId, int productId) {
-        // code to remove a product from an existing order
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
-    
-    public void viewOrderPrice(int orderId) {
-        // code to view the total price for all items in an order
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+        totalPrice += product.getPrice();
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        totalPrice -= product.getPrice();
     }
 }
