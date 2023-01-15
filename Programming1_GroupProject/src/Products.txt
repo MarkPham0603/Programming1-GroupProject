@@ -1,0 +1,4 @@
+Lap885,Dell XPS,Laptop,1500.0
+Pho826,Iphone 14,Smartphone,1499.0
+Lap487,Macbook Pro,Laptop,1299.0
+Ear756,Razer Kraken,Earphone,100.0

@@ -1,0 +1,4 @@
+Odr5-811,hien,888777555,Iphone 14,Smartphone,Confirming,1499.0 
+Odr4-727,hien,888777555,Macbook Pro,Laptop,Confirming,1299.0 
+Odr1-446,mark,777666888,Iphone 14,Smartphone,Confirming,1499.0 
+Odr7-787,mark,777666888,Iphone 14,Smartphone,Confirming,1499.0 
